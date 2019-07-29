@@ -95,7 +95,7 @@ function syncSidebar() {
   notableGraves.eachLayer(function (layer) {
     if (map.hasLayer(notableGraveLayer)) {
       if (map.getBounds().contains(layer.getLatLng())) {
-        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/images/tombstone.png"></td><td class="feature-name">' + layer.feature.properties.Full_Name + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+        $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="20" height="20" src="assets/images/tombstone.png"></td><td class="feature-name">' + layer.feature.properties.Full_Name + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       }
     }
   });
@@ -166,7 +166,7 @@ var notableGraves = L.geoJson(null,{
     return L.marker(latlng, {
       icon: L.icon({
         iconUrl: "assets/images/tombstone.png",
-        iconSize: [24, 28],
+        iconSize: [20, 20],
         iconAnchor: [12, 28],
         popupAnchor: [0, -25]
       }),
@@ -192,7 +192,7 @@ var notableGraves = L.geoJson(null,{
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
         }
       });
-      $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/images/tombstone.png"></td><td class="feature-name">' + layer.feature.properties.NAME + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
+      $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="20" height="20" src="assets/images/tombstone.png"></td><td class="feature-name">' + layer.feature.properties.NAME + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       notableGraveSearch.push({
         name: layer.feature.properties.Full_Name,
         source: "Notable Graves",
@@ -371,7 +371,7 @@ $(document).one("ajaxStop", function () {
     displayKey: "name",
     source: notableGravesBH.ttAdapter(),
     templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/images/tombstone.png' width='24' height='28'>&nbsp;Notable Graves</h4>",
+      header: "<h4 class='typeahead-header'><img src='assets/images/tombstone.png' width='20' height='20'>&nbsp;Notable Graves</h4>",
       // Check here
       suggestion: Handlebars.compile(["{{Full_Name}}<br>&nbsp;<small>{{address}}</small>"].join(""))
     }
