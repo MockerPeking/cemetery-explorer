@@ -1,4 +1,4 @@
-var map, featureList, boroughSearch = [], notableGraveSearch = [];
+var map, featureList, notableGraveSearch = [];
 
 $(window).resize(function() {
   sizeLayerControl();
@@ -133,28 +133,6 @@ var highlightStyle = {
   radius: 10
 };
 
-var boroughs = L.geoJson(null, {
-  style: function (feature) {
-    return {
-      color: "black",
-      fill: false,
-      opacity: 1,
-      clickable: false
-    };
-  },
-  onEachFeature: function (feature, layer) {
-    boroughSearch.push({
-      name: layer.feature.properties.BoroName,
-      source: "Boroughs",
-      id: L.stamp(layer),
-      bounds: layer.getBounds()
-    });
-  }
-});
-$.getJSON("data/boroughs.geojson", function (data) {
-  boroughs.addData(data);
-});
-
 // road network
 var roadNetwork = L.geoJson(null, {
   style: function (feature) {
@@ -167,56 +145,6 @@ var roadNetwork = L.geoJson(null, {
 });
 $.getJSON("data/network.geojson", function (data) {
   roadNetwork.addData(data);
-});
-
-//Create a color dictionary based off of subway route_id
-var subwayColors = {"1":"#ff3135", "2":"#ff3135", "3":"ff3135", "4":"#009b2e",
-    "5":"#009b2e", "6":"#009b2e", "7":"#ce06cb", "A":"#fd9a00", "C":"#fd9a00",
-    "E":"#fd9a00", "SI":"#fd9a00","H":"#fd9a00", "Air":"#ffff00", "B":"#ffff00",
-    "D":"#ffff00", "F":"#ffff00", "M":"#ffff00", "G":"#9ace00", "FS":"#6e6e6e",
-    "GS":"#6e6e6e", "J":"#976900", "Z":"#976900", "L":"#969696", "N":"#ffff00",
-    "Q":"#ffff00", "R":"#ffff00" };
-
-var subwayLines = L.geoJson(null, {
-  style: function (feature) {
-      return {
-        color: subwayColors[feature.properties.route_id],
-        weight: 3,
-        opacity: 1
-      };
-  },
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Division</th><td>" + feature.properties.Division + "</td></tr>" + "<tr><th>Line</th><td>" + feature.properties.Line + "</td></tr>" + "<table>";
-      layer.on({
-        click: function (e) {
-          $("#feature-title").html(feature.properties.Line);
-          $("#feature-info").html(content);
-          $("#featureModal").modal("show");
-
-        }
-      });
-    }
-    layer.on({
-      mouseover: function (e) {
-        var layer = e.target;
-        layer.setStyle({
-          weight: 3,
-          color: "#00FFFF",
-          opacity: 1
-        });
-        if (!L.Browser.ie && !L.Browser.opera) {
-          layer.bringToFront();
-        }
-      },
-      mouseout: function (e) {
-        subwayLines.resetStyle(e.target);
-      }
-    });
-  }
-});
-$.getJSON("data/subways.geojson", function (data) {
-  subwayLines.addData(data);
 });
 
 /* Single marker cluster layer to hold all clusters */
@@ -273,7 +201,7 @@ $.getJSON("data/notables.geojson", function (data) {
 map = L.map("map", {
   zoom: 10,
   center: [42.70806124627294764, -73.73052408961893889],
-  layers: [cartoLight, boroughs, roadNetwork, markerClusters, highlight],
+  layers: [cartoLight, roadNetwork, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
 });
@@ -378,8 +306,6 @@ var groupedOverlays = {
     "<img src='assets/images/tombstone.png' width='24' height='28'>&nbsp;Notable Graves": notableGraveLayer
   },
   "Reference": {
-    "Boroughs": boroughs,
-    "Subway Lines": subwayLines,
     "Road Network": roadNetwork
   }
 };
@@ -412,16 +338,6 @@ $(document).one("ajaxStop", function () {
   map.fitBounds(notableGraves.getBounds());
   featureList = new List("features", {valueNames: ["feature-name"]});
   featureList.sort("feature-name", {order:"asc"});
-
-  var boroughsBH = new Bloodhound({
-    name: "Boroughs",
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.name);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: boroughSearch,
-    limit: 10
-  });
 
   var notableGravesBH = new Bloodhound({
     name: "Notable Graves",
@@ -463,7 +379,7 @@ $(document).one("ajaxStop", function () {
     },
     limit: 10
   });
-  boroughsBH.initialize();
+
   geonamesBH.initialize();
   notableGravesBH.initialize();
 
@@ -472,13 +388,6 @@ $(document).one("ajaxStop", function () {
     minLength: 3,
     highlight: true,
     hint: false
-  }, {
-    name: "Boroughs",
-    displayKey: "name",
-    source: boroughsBH.ttAdapter(),
-    templates: {
-      header: "<h4 class='typeahead-header'>Boroughs</h4>"
-    }
   },
   {
     name: "NotableGraves",
@@ -497,9 +406,6 @@ $(document).one("ajaxStop", function () {
       header: "<h4 class='typeahead-header'><img src='assets/images/globe.png' width='25' height='25'>&nbsp;GeoNames</h4>"
     }
   }).on("typeahead:selected", function (obj, datum) {
-    if (datum.source === "Boroughs") {
-      map.fitBounds(datum.bounds);
-    }
     if (datum.source === "NotableGraves") {
       if (!map.hasLayer(notableGraveLayer)) {
         map.addLayer(notableGraveLayer);
