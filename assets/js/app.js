@@ -230,7 +230,7 @@ var notableGraves = L.geoJson(null,{
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" + "<tr><th>Phone</th><td>" + feature.properties.TEL + "</td></tr>" + "<tr><th>Address</th><td>" + feature.properties.ADDRESS1 + "</td></tr>" + "<tr><th>Website</th><td><a class='url-break' href='" + feature.properties.URL + "' target='_blank'>" + feature.properties.URL + "</a></td></tr>" + "<table>";
+      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" + "<tr><th>Birth Date</th><td>" + (feature.properties.Birth || "N/A") + "</td></tr>" + "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" + "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" + "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.Full_Name);
