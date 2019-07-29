@@ -172,11 +172,18 @@ var notableGraves = L.geoJson(null,{
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" + "<tr><th>Birth Date</th><td>" + (feature.properties.Birth || "N/A") + "</td></tr>" + "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" + "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" + "<table>";
+      var featureImage = '<img src=' + feature.properties.PhotoURL +  ' class="img-responsive fit-image">';
+      var shortContent = "<table class='table table-striped table-bordered table-condensed'>" + 
+      "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" + 
+      "<tr><th>Birth Date</th><td>" + (feature.properties.Birth || "N/A") + "</td></tr>" + 
+      "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" + 
+      "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" + 
+      "<table>";
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.Full_Name);
-          $("#feature-info").html(content);
+          $("#feature-image").html(featureImage);
+          $("#feature-short-content").html(shortContent);
           $("#featureModal").modal("show");
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
         }
@@ -184,7 +191,6 @@ var notableGraves = L.geoJson(null,{
       $("#feature-list tbody").append('<tr class="feature-row" id="' + L.stamp(layer) + '" lat="' + layer.getLatLng().lat + '" lng="' + layer.getLatLng().lng + '"><td style="vertical-align: middle;"><img width="16" height="18" src="assets/images/tombstone.png"></td><td class="feature-name">' + layer.feature.properties.NAME + '</td><td style="vertical-align: middle;"><i class="fa fa-chevron-right pull-right"></i></td></tr>');
       notableGraveSearch.push({
         name: layer.feature.properties.Full_Name,
-        // address: layer.feature.properties.ADDRESS1,
         source: "Notable Graves",
         id: L.stamp(layer),
         lat: layer.feature.geometry.coordinates[1],
