@@ -114,9 +114,9 @@ var cartoLight = L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://cartodb.com/attributions">CartoDB</a>'
 });
 var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}", {
-  // maxZoom: 15,
+  maxZoom: 15,
 }), L.tileLayer.wms("http://raster.nationalmap.gov/arcgis/services/Orthoimagery/USGS_EROS_Ortho_SCALE/ImageServer/WMSServer?", {
-  // minZoom: 16,
+  minZoom: 16,
   maxZoom: 19,
   layers: "0",
   format: 'image/jpeg',
@@ -309,13 +309,15 @@ if (document.body.clientWidth <= 767) {
 var baseLayers = {
   "ESRI World Image": Esri_WorldImagery,
   "Street Map": cartoLight,
+  // Very slow
   // "Aerial Imagery": usgsImagery,
+
 };
 
 var groupedOverlays = {
   "Points of Interest": {
     "<img src='assets/images/tombstone.png' width='20' height='20'>&nbsp;Notable Graves": notableGraveLayer,
-    "Road": roadNetwork
+    "<img src='assets/images/work-tools.png' width='20' height='20'>&nbsp;Road": roadNetwork,
   },
 };
 
