@@ -124,6 +124,10 @@ var usgsImagery = L.layerGroup([L.tileLayer("http://basemap.nationalmap.gov/arcg
   attribution: "Aerial Imagery courtesy USGS"
 })]);
 
+var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
 /* Overlay Layers */
 var highlight = L.geoJson(null);
 var highlightStyle = {
@@ -304,16 +308,15 @@ if (document.body.clientWidth <= 767) {
 
 var baseLayers = {
   "Street Map": cartoLight,
-  "Aerial Imagery": usgsImagery
+  "Aerial Imagery": usgsImagery,
+  "ESRI World Image": Esri_WorldImagery
 };
 
 var groupedOverlays = {
   "Points of Interest": {
-    "<img src='assets/images/tombstone.png' width='24' height='28'>&nbsp;Notable Graves": notableGraveLayer
+    "<img src='assets/images/tombstone.png' width='20' height='20'>&nbsp;Notable Graves": notableGraveLayer,
+    "Road": roadNetwork
   },
-  "Reference": {
-    "Road Network": roadNetwork
-  }
 };
 
 var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
@@ -355,38 +358,6 @@ $(document).one("ajaxStop", function () {
     limit: 10
   });
 
-  var geonamesBH = new Bloodhound({
-    name: "GeoNames",
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.name);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: "http://api.geonames.org/searchJSON?username=bootleaf&featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY",
-      filter: function (data) {
-        return $.map(data.geonames, function (result) {
-          return {
-            name: result.name + ", " + result.adminCode1,
-            lat: result.lat,
-            lng: result.lng,
-            source: "GeoNames"
-          };
-        });
-      },
-      ajax: {
-        beforeSend: function (jqXhr, settings) {
-          settings.url += "&east=" + map.getBounds().getEast() + "&west=" + map.getBounds().getWest() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth();
-          $("#searchicon").removeClass("fa-search").addClass("fa-refresh fa-spin");
-        },
-        complete: function (jqXHR, status) {
-          $('#searchicon').removeClass("fa-refresh fa-spin").addClass("fa-search");
-        }
-      }
-    },
-    limit: 10
-  });
-
-  geonamesBH.initialize();
   notableGravesBH.initialize();
 
   /* instantiate the typeahead UI */
@@ -404,14 +375,8 @@ $(document).one("ajaxStop", function () {
       // Check here
       suggestion: Handlebars.compile(["{{Full_Name}}<br>&nbsp;<small>{{address}}</small>"].join(""))
     }
-  },{
-    name: "GeoNames",
-    displayKey: "name",
-    source: geonamesBH.ttAdapter(),
-    templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/images/globe.png' width='25' height='25'>&nbsp;GeoNames</h4>"
-    }
-  }).on("typeahead:selected", function (obj, datum) {
+  }
+  ).on("typeahead:selected", function (obj, datum) {
     if (datum.source === "NotableGraves") {
       if (!map.hasLayer(notableGraveLayer)) {
         map.addLayer(notableGraveLayer);
@@ -420,9 +385,6 @@ $(document).one("ajaxStop", function () {
       if (map._layers[datum.id]) {
         map._layers[datum.id].fire("click");
       }
-    }
-    if (datum.source === "GeoNames") {
-      map.setView([datum.lat, datum.lng], 14);
     }
     if ($(".navbar-collapse").height() > 50) {
       $(".navbar-collapse").collapse("hide");
