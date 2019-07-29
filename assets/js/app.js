@@ -177,11 +177,11 @@ var notableGraves = L.geoJson(null,{
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
       var featureImage = '<img src=' + feature.properties.PhotoURL +  ' class="img-responsive fit-image">';
-      var shortContent = "<table class='table table-striped table-bordered table-condensed'>" + 
-      "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" + 
-      "<tr><th>Birth Date</th><td>" + (feature.properties.Birth || "N/A") + "</td></tr>" + 
-      "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" + 
-      "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" + 
+      var shortContent = "<table class='table table-striped table-bordered table-condensed'>" +
+      "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" +
+      "<tr><th>Birth Date</th><td>" + (feature.properties.Birth || "N/A") + "</td></tr>" +
+      "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" +
+      "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" +
       "<table>";
       layer.on({
         click: function (e) {
@@ -229,7 +229,7 @@ map.on("overlayremove", function(e) {
     markerClusters.removeLayer(notableGraves);
     syncSidebar();
   }
-  
+
 });
 
 /* Filter sidebar feature list to only show features in current map bounds */
@@ -411,3 +411,34 @@ if (!L.Browser.touch) {
 } else {
   L.DomEvent.disableClickPropagation(container);
 }
+
+$(document).ready(function(){
+
+  $('.next').click(function(){
+
+    var nextId = $(this).parents('.tab-pane').next().attr("id");
+    $('[href=#'+nextId+']').tab('show');
+    return false;
+
+  })
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+    //update progress
+    var step = $(e.target).data('step');
+    var percent = (parseInt(step) / 4) * 100;
+
+    $('.progress-bar').css({width: percent + '%'});
+    $('.progress-bar').text("Step " + step + " of 4");
+
+    //e.relatedTarget // previous tab
+
+  })
+
+  $('.first').click(function(){
+
+    $('#myWizard a:first').tab('show')
+
+  })
+
+});
