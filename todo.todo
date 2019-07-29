@@ -1,26 +1,27 @@
 todo
 
-☐ create basic template
-☐ show map
-    ☐ put in the cemetery location
-    ☐ proper zoom
-☐ show all grave
+✔ create basic template @done(19-07-29 15:51)
+✔ show map @done(19-07-29 15:51)
+    ✔ put in the cemetery location @done(19-07-29 15:51)
+    ✔ proper zoom @done(19-07-29 15:51)
+✔ show all grave @done(19-07-29 15:51)
+- put the network
 ☐ create form for search grave
-    ☐ name
+    ✔ name @done(19-07-29 15:52)
     ☐ advance filter
-    ☐ result list
+    ✔ result list @done(19-07-29 15:52)
 ☐ search functionality
-    ☐ filter function based on name
-    ☐ show result in the list 
+    ✔ filter function based on name @done(19-07-29 15:52)
+    ✔ show result in the list @done(19-07-29 15:52)
     ☐ show only grave in the map
 ☐ make the result clickable
     ☐ show modal to show the selected grave
         ☐ photos
-        ☐ name
+        ✔ name @done(19-07-29 15:52)
         ☐ short description
         ☐ button to send flower
         ☐ button to navigate
-        ☐ close button
+        ✔ close button @done(19-07-29 15:52)
     ☐ make the selected grave has different style
 ☐ send flower
     ☐ show as a modal

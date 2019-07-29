@@ -24,7 +24,7 @@ $("#about-btn").click(function() {
 });
 
 $("#full-extent-btn").click(function() {
-  map.fitBounds(boroughs.getBounds());
+  map.fitBounds(notableGraves.getBounds());
   $(".navbar-collapse.in").collapse("hide");
   return false;
 });
@@ -155,6 +155,20 @@ $.getJSON("data/boroughs.geojson", function (data) {
   boroughs.addData(data);
 });
 
+// road network
+var roadNetwork = L.geoJson(null, {
+  style: function (feature) {
+    return {
+      color: "black",
+      weight: 3,
+      opacity: 1
+    };
+  }
+});
+$.getJSON("data/network.geojson", function (data) {
+  roadNetwork.addData(data);
+});
+
 //Create a color dictionary based off of subway route_id
 var subwayColors = {"1":"#ff3135", "2":"#ff3135", "3":"ff3135", "4":"#009b2e",
     "5":"#009b2e", "6":"#009b2e", "7":"#ce06cb", "A":"#fd9a00", "C":"#fd9a00",
@@ -259,7 +273,7 @@ $.getJSON("data/notables.geojson", function (data) {
 map = L.map("map", {
   zoom: 10,
   center: [42.70806124627294764, -73.73052408961893889],
-  layers: [cartoLight, boroughs, markerClusters, highlight],
+  layers: [cartoLight, boroughs, roadNetwork, markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
 });
@@ -365,7 +379,8 @@ var groupedOverlays = {
   },
   "Reference": {
     "Boroughs": boroughs,
-    "Subway Lines": subwayLines
+    "Subway Lines": subwayLines,
+    "Road Network": roadNetwork
   }
 };
 
