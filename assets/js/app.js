@@ -183,10 +183,10 @@ var notableGraves = L.geoJson(null,{
       "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" +
       "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" +
       "<table>";
-      // var featureDescription = getDescription(feature.properties.File_Name);
       var featureDescription;
       var descriptionURL = 'data/descriptions/' + feature.properties.File_Name;
-
+      var featureAudio = '<audio controls> <source src="data/audio/' + feature.properties.Audio + '" type="audio/mpeg">Story</audio>';
+      console.log(featureAudio);
       // read text from URL location
       var request = new XMLHttpRequest();
       request.open('GET', descriptionURL, true);
@@ -206,6 +206,8 @@ var notableGraves = L.geoJson(null,{
           $("#feature-image").html(featureImage);
           $("#feature-short-content").html(shortContent);
           $("#feature-description").html(featureDescription);
+          $("#feature-audio").html(featureAudio);
+          // <audio controls> <source src="data/audio/forall.wav" type="audio/mpeg">Story</audio>
           $("#featureModal").modal("show");
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
         }
