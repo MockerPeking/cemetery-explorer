@@ -183,11 +183,29 @@ var notableGraves = L.geoJson(null,{
       "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" +
       "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" +
       "<table>";
+      // var featureDescription = getDescription(feature.properties.File_Name);
+      var featureDescription;
+      var descriptionURL = 'data/descriptions/' + feature.properties.File_Name;
+
+      // read text from URL location
+      var request = new XMLHttpRequest();
+      request.open('GET', descriptionURL, true);
+      request.send(null);
+      request.onreadystatechange = function () {
+          if (request.readyState == 4 && request.status === 200) {
+              var type = request.getResponseHeader('Content-Type');
+              if (type.indexOf("text") !== 1) {
+                featureDescription = request.responseText;
+              }
+          }
+      }
+
       layer.on({
         click: function (e) {
           $("#feature-title").html(feature.properties.Full_Name);
           $("#feature-image").html(featureImage);
           $("#feature-short-content").html(shortContent);
+          $("#feature-description").html(featureDescription);
           $("#featureModal").modal("show");
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
         }
@@ -442,3 +460,25 @@ $(document).ready(function(){
   })
 
 });
+
+function getDescription(descriptionURL){
+  if (descriptionURL === ''){
+    return 'Zonk'
+  }
+
+  descriptionURL = 'data/descriptions/' + descriptionURL;
+  // read text from URL location
+  var request = new XMLHttpRequest();
+  request.open('GET', descriptionURL, true);
+  request.send(null);
+  request.onreadystatechange = function () {
+    // console.log(descriptionURL + (request.readyState));
+      if (request.readyState == 4 && request.status === 200) {
+          var type = request.getResponseHeader('Content-Type');
+          if (type.indexOf("text") !== 1) {
+            // console.log(descriptionURL + '\n' + request.responseText);
+            return request.responseText;
+          }
+      }
+  }
+}

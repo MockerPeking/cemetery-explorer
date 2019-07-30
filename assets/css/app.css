@@ -180,3 +180,9 @@ input[type="radio"], input[type="checkbox"] {
   width: 100%;
   object-fit: cover;
   }
+
+.feature-description {
+    white-space: pre-line;
+    height: 350px;
+    overflow-y: scroll;
+   }
