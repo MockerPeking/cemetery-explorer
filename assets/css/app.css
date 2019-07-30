@@ -186,3 +186,16 @@ input[type="radio"], input[type="checkbox"] {
     height: 200px;
     overflow-y: scroll;
    }
+
+.flower {
+  height: 120px;
+  width: 120px;
+}
+
+.flower-name {
+  text-align: center;
+}
+
+.flower-item {
+  text-align: center;
+}

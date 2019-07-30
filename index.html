@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css">
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
     <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png">
@@ -308,33 +309,45 @@
                 </div>
                 <div class="tab-content">
                 <div class="tab-pane fade in active" id="step1">
-
                     <div class="well">
-
-                        <label>Security Question 1</label>
-                        <select class="form-control input-lg">
-                        <option value="What was the name of your first pet?">What was the name of your first pet?</option>
-                        <option value="Where did you first attend school?">Where did you first attend school?</option>
-                        <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
-                        <option value="What is your favorite car model?">What is your favorite car model?</option>
-                        </select>
-                        <br>
-                        <label>Enter Response</label>
-                        <input class="form-control input-lg">
+                        <h2>Choose your flowers</h2>
+                        <div class="row">
+                            <div>
+                                <div class="col-md-3" id="flower1" class="flower-item">
+                                    <img class="flower" src="assets/images/flowers/flower-chrysantium.jpg" alt="Chrysantium">
+                                    <span class="flower-name">
+                                        Chrysantium
+                                    </span>
+                                </div>
+                                <div class="col-md-3" id="flower2" class="flower-item">
+                                    <img class="flower" src="assets/images/flowers/flower-red-rose.jpg" alt="Red Rose">
+                                    <span class="flower-name">
+                                        Red Rose
+                                    </span>
+                                </div>
+                                <div class="col-md-3" id="flower3" class="flower-item">
+                                    <img class="flower" src="assets/images/flowers/flower-yellow-rose.jpg" alt="Yellow Rose">
+                                    <span class="flower-name">
+                                        Yellow Rose
+                                    </span>
+                                </div>
+                                <div class="col-md-3" id="flower4" class="flower-item">
+                                    <img class="flower" src="assets/images/flowers/flower-white-rose.jpg" alt="White Rose">
+                                    <span class="flower-name">
+                                        White Rose
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <a class="btn btn-default next" href="#">Continue</a>
                 </div>
                 <div class="tab-pane fade" id="step2">
                     <div class="well">
-                        <label>Security Question 2</label>
-                        <select class="form-control  input-lg">
-                        <option value="What was the name of your first pet?">What was the name of your first pet?</option>
-                        <option selected="" value="Where did you first attend school?">Where did you first attend school?</option>
-                        <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
-                        <option value="What is your favorite car model?">What is your favorite car model?</option>
-                        </select>
-                        <br>
-                        <label>Enter Response</label>
+                        <h2>Delivery Options</h2>
+                        <label>Delivery Date</label>
+                        <input type="text" id="datepicker" class="form-control input-lg">
+                        <label>Memorial Text</label>
                         <input class="form-control input-lg">
                     </div>
                     <a class="btn btn-default next" href="#">Continue</a>
@@ -381,6 +394,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
     <script src="assets/js/app.js"></script>
   </body>
