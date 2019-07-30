@@ -460,25 +460,3 @@ $(document).ready(function(){
   })
 
 });
-
-function getDescription(descriptionURL){
-  if (descriptionURL === ''){
-    return 'Zonk'
-  }
-
-  descriptionURL = 'data/descriptions/' + descriptionURL;
-  // read text from URL location
-  var request = new XMLHttpRequest();
-  request.open('GET', descriptionURL, true);
-  request.send(null);
-  request.onreadystatechange = function () {
-    // console.log(descriptionURL + (request.readyState));
-      if (request.readyState == 4 && request.status === 200) {
-          var type = request.getResponseHeader('Content-Type');
-          if (type.indexOf("text") !== 1) {
-            // console.log(descriptionURL + '\n' + request.responseText);
-            return request.responseText;
-          }
-      }
-  }
-}

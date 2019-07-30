@@ -5,7 +5,7 @@ todo
     ✔ put in the cemetery location @done(19-07-29 15:51)
     ✔ proper zoom @done(19-07-29 15:51)
 ✔ show all grave @done(19-07-29 15:51)
-- put the network
+✔ put the network @done(19-07-29 19:32)
 ☐ create form for search grave
     ✔ name @done(19-07-29 15:52)
     ☐ advance filter
@@ -16,13 +16,15 @@ todo
     ☐ show only grave in the map
 ☐ make the result clickable
     ☐ show modal to show the selected grave
-        ☐ photos
+        ✔ photos @done(19-07-29 19:32)
         ✔ name @done(19-07-29 15:52)
-        ☐ short description
+        ✔ short description @done(19-07-30 11:46)
         ☐ button to send flower
         ☐ button to navigate
         ✔ close button @done(19-07-29 15:52)
-    ☐ make the selected grave has different style
+    ✔ make the selected grave has different style @done(19-07-30 11:46)
 ☐ send flower
-    ☐ show as a modal
+    ✔ show as a modal @done(19-07-29 19:32)
     ☐ show list of flowers
+    - send detail (sending date, etc)
+    - payment detail
