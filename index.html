@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
     <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="http://rvera.github.io/image-picker/image-picker/image-picker.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon-76.png">
@@ -271,7 +272,7 @@
                 </div>
           <div class="modal-footer">
             <!-- <button id="send-flower" type="button" class="btn btn-default" data-dismiss="modal">SendFlower</button> -->
-            <a href="#sendFlowerModal" role="button" class="btn btn-default" data-toggle="modal">Send Flower</a>
+            <a href="#sendFlowerModal" role="button" class="btn btn-success" data-toggle="modal">Send Flower</a>
             <!-- <button type="button" class="btn btn-default" data-dismiss="modal">SendFlower</button> -->
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
@@ -309,32 +310,13 @@
                     <div class="well">
                         <h2>Choose your flowers</h2>
                         <div class="row">
-                            <div>
-                                <div class="col-md-3" id="flower1" class="flower-item">
-                                    <img class="flower" src="assets/images/flowers/flower-chrysantium.jpg" alt="Chrysantium">
-                                    <span class="flower-name">
-                                        Chrysantium
-                                    </span>
-                                </div>
-                                <div class="col-md-3" id="flower2" class="flower-item">
-                                    <img class="flower" src="assets/images/flowers/flower-red-rose.jpg" alt="Red Rose">
-                                    <span class="flower-name">
-                                        Red Rose
-                                    </span>
-                                </div>
-                                <div class="col-md-3" id="flower3" class="flower-item">
-                                    <img class="flower" src="assets/images/flowers/flower-yellow-rose.jpg" alt="Yellow Rose">
-                                    <span class="flower-name">
-                                        Yellow Rose
-                                    </span>
-                                </div>
-                                <div class="col-md-3" id="flower4" class="flower-item">
-                                    <img class="flower" src="assets/images/flowers/flower-white-rose.jpg" alt="White Rose">
-                                    <span class="flower-name">
-                                        White Rose
-                                    </span>
-                                </div>
-                            </div>
+                            <select id="select-flower" class="image-picker">
+                                    <!-- <option value=""></option> -->
+                                <option data-img-src="assets/images/flowers/flower-chrysantium.jpg" data-img-class="first" data-img-alt="Chrysantium" value="1">  Chrysantium  </option>
+                                <option data-img-src="assets/images/flowers/flower-red-rose.jpg" data-img-alt="Red Rose" value="2">  Red Rose  </option>
+                                <option data-img-src="assets/images/flowers/flower-yellow-rose.jpg" data-img-alt="Yellow Rose" value="3">  Yellow Rose  </option>
+                                <option data-img-src="assets/images/flowers/flower-white-rose.jpg" data-img-alt="White Rose" data-img-class="last" value="4"> White Rose </option>
+                            </select>
                         </div>
                     </div>
                     <a class="btn btn-default next" href="#">Continue</a>
@@ -343,9 +325,9 @@
                     <div class="well">
                         <h2>Delivery Options</h2>
                         <label>Delivery Date</label>
-                        <input type="text" id="datepicker" class="form-control input-lg">
+                        <input type="text" id="datepicker" class="form-control input">
                         <label>Memorial Text</label>
-                        <input class="form-control input-lg">
+                        <input class="form-control input">
                     </div>
                     <a class="btn btn-default next" href="#">Continue</a>
                 </div>
@@ -363,7 +345,7 @@
                          <label>Email address</label>
                          <input class="form-control input">
                     </div>
-                    <a class="btn btn-default next" href="#">Continue</a>
+                    <a class="btn btn-default next" href="#">Pay</a>
                 </div>
                 <div class="tab-pane fade" id="step4">
                     <div class="well">
@@ -371,7 +353,7 @@
                          <h3>Now, our team will handle the flower.</h3>
                          <h3>Please relax, and wait for the photo of the flower from us</h3>
                     </div>
-                    <a class="btn btn-success first" href="#">Start over</a>
+                    <a class="btn btn-success first" href="#">SendFlower again!</a>
                 </div>
                 </div>
             </div>
@@ -409,6 +391,9 @@
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
+    <script src="http://rvera.github.io/image-picker/image-picker/image-picker.min.js"></script>
+    <script src="http://desandro.github.io/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="http://masonry.desandro.com/masonry.pkgd.min.js"></script>
     <script src="assets/js/app.js"></script>
   </body>
 </html>

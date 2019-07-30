@@ -199,3 +199,9 @@ input[type="radio"], input[type="checkbox"] {
 .flower-item {
   text-align: center;
 }
+
+.image_picker_image {
+  max-width: 140px;
+  max-height: 100px;
+  background-color: #FF0000;
+}

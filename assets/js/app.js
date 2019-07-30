@@ -179,14 +179,13 @@ var notableGraves = L.geoJson(null,{
       var featureImage = '<img src=' + feature.properties.PhotoURL +  ' class="img-responsive fit-image">';
       var shortContent = "<table class='table table-striped table-bordered table-condensed'>" +
       "<tr><th>Name</th><td>" + feature.properties.Full_Name + "</td></tr>" +
+      "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" +
       "<tr><th>Birth Date</th><td>" + (feature.properties.Birth || "N/A") + "</td></tr>" +
       "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" +
-      "<tr><th>Title</th><td>" + (feature.properties.Titles || "-") + "</td></tr>" +
       "<table>";
       var featureDescription;
       var descriptionURL = 'data/descriptions/' + feature.properties.File_Name;
       var featureAudio = '<audio controls> <source src="data/audio/' + feature.properties.Audio + '" type="audio/mpeg">Story</audio>';
-      console.log(featureAudio);
       // read text from URL location
       var request = new XMLHttpRequest();
       request.open('GET', descriptionURL, true);
@@ -207,7 +206,6 @@ var notableGraves = L.geoJson(null,{
           $("#feature-short-content").html(shortContent);
           $("#feature-description").html(featureDescription);
           $("#feature-audio").html(featureAudio);
-          // <audio controls> <source src="data/audio/forall.wav" type="audio/mpeg">Story</audio>
           $("#featureModal").modal("show");
           highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
         }
@@ -460,9 +458,24 @@ $(document).ready(function(){
     $('#myWizard a:first').tab('show')
 
   })
-
 });
 
 $( function() {
   $( "#datepicker" ).datepicker();
 } );
+
+$(document).ready(function () {
+  $("#select-flower").imagepicker({
+      hide_select: true
+  });
+
+  // Does not work
+  // var $container = $('.image_picker_selector');
+  // initialize
+  // $container.imagesLoaded(function () {
+  //     $container.masonry({
+  //         // columnWidth: 30,
+  //         // itemSelector: '.thumbnail'
+  //     });
+  // });
+});
