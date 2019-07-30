@@ -466,7 +466,8 @@ $( function() {
 
 $(document).ready(function () {
   $("#select-flower").imagepicker({
-      hide_select: true
+    hide_select : true,
+    show_label  : true
   });
 
   // Does not work
