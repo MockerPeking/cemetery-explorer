@@ -184,6 +184,9 @@ var notableGraves = L.geoJson(null,{
       "<tr><th>Death Date</th><td>" + (feature.properties.Death || "N/A") + "</td></tr>" +
       "<table>";
       var featureDescription;
+      if (feature.properties.File_Name === ''){
+        feature.properties.File_Name = 'lorem-ipsum.txt'
+      }
       var descriptionURL = 'data/descriptions/' + feature.properties.File_Name;
       var featureAudio = '<audio controls> <source src="data/audio/' + feature.properties.Audio + '" type="audio/mpeg">Story</audio>';
       // read text from URL location
