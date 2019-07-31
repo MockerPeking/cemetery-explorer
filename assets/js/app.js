@@ -151,6 +151,59 @@ $.getJSON("data/network.geojson", function (data) {
   roadNetwork.addData(data);
 });
 
+// Predefined tours
+var athleteTour = L.geoJson(null, {
+  style: function (feature) {
+    return {
+      color: "blue",
+      weight: 3,
+      opacity: 1
+    };
+  }
+});
+$.getJSON("data/routes/Athlete.geojson", function (data) {
+  athleteTour.addData(data);
+});
+
+var militarTour = L.geoJson(null, {
+  style: function (feature) {
+    return {
+      color: "orange",
+      weight: 3,
+      opacity: 1
+    };
+  }
+});
+$.getJSON("data/routes/Militar.geojson", function (data) {
+  militarTour.addData(data);
+});
+
+var politicianTour = L.geoJson(null, {
+  style: function (feature) {
+    return {
+      color: "yellow",
+      weight: 3,
+      opacity: 1
+    };
+  }
+});
+$.getJSON("data/routes/Politician.geojson", function (data) {
+  politicianTour.addData(data);
+});
+
+var scientistTour = L.geoJson(null, {
+  style: function (feature) {
+    return {
+      color: "red",
+      weight: 3,
+      opacity: 1
+    };
+  }
+});
+$.getJSON("data/routes/Scientist.geojson", function (data) {
+  scientistTour.addData(data);
+});
+
 /* Single marker cluster layer to hold all clusters */
 var markerClusters = new L.MarkerClusterGroup({
   spiderfyOnMaxZoom: true,
@@ -340,6 +393,12 @@ var groupedOverlays = {
     "<img src='assets/images/tombstone.png' width='20' height='20'>&nbsp;Notable Graves": notableGraveLayer,
     "<img src='assets/images/work-tools.png' width='20' height='20'>&nbsp;Road": roadNetwork,
   },
+  "Predefined Tours": {
+    "Scientist": scientistTour,
+    "Military": militarTour,
+    "Politician": politicianTour,
+    "Athlete": athleteTour
+  }
 };
 
 var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
